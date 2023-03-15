@@ -1,0 +1,72 @@
+<% layout('./layout/boilerplate') -%>
+
+
+<div style="display:flex;flex-direction:row;width:100vw; align-items:center;justify-content:space-evenly;" >
+  <div>
+
+    <h1 style="margin-left: 275px;margin-top:20px">  <%= product.name %> </h1>
+          <div class="card mx-auto mb-3" style="width: 23rem;margin-top:30px">
+              <img src="<%=product.img%>" class="card-img-top" alt="<%=product.name%> ">
+              <div class="card-body">
+                <h5 class="card-title"><%=product.name%> </h5>
+                <p class="card-text"><%=product.desc%></p>
+                <h5 class="card-title">$<%=product.price%> </h5>
+            
+                <a href="/products/<%=product._id%>/edit" class="btn btn-sm btn-secondary">Update</a>
+
+               <form action="/products/<%=product._id%>?_method=DELETE" method="post" class="d-inline">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+               </form>
+        
+          </div>
+          </div>
+          </div>
+     
+
+      <div style="width:50%;" >
+
+        <div class="border p-3 mx-auto w-50 mt-5">
+          <h1>Add Review</h1>
+
+
+          <form action="/products/<%= product._id %>/review" method="post">
+              <div class="mb-3">
+                  <label for="rating" class="form-label">Ratings</label>
+                  <input type="range" name="rating" class="form-control" id="rating" min="1" max="5" step="1">
+              </div>    
+             
+              <div class="mb-3">
+                  <label for="comment" class="form-label">Comment</label>
+                  <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+              </div> 
+              <button type="submit" class="btn btn-success btn-sm">Add Review</button>
+          </form>
+
+
+         <% for(let review of product.review){ %>
+
+          <div style="margin:20px">
+   
+            <label for="showRating" class="form-label">Ratings</label>
+            <input type="text" name="showrating" class="form-control" id="showrating" value="<%= review.rating %>">
+            <br>
+            <label for="showcomment" class="form-label">Comment</label>
+            <input type="text" name="showcomment" class="form-control" id="showcomment"  value="<%= review.comment %>">
+        
+          </div>
+
+
+
+
+        <%  } %>
+
+          
+      </div>
+
+
+  </div>
+
+ 
+
+</div>
+
