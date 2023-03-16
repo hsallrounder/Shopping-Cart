@@ -10,30 +10,21 @@ router.post("/products/:productid/review", async(req,res)=>{
 
     const { rating , comment} = req.body;
 
-    //find the product in which you want to add review
-
+     // find the product with the given product id
     const product = await Product.findById(productid);
 
 
-     // Adding the review in the database
-
+     // Creating and Adding the review in Review model
     let review = await Review.create({rating , comment});
 
+
+     // push the reference of created review inside product.reviews array
        await product.review.push(review);
 
+       // since storing review in array is not permanent, we need to save it
        await product.save();
 
        res.redirect(`/products/${productid}`)
-
 })
-
-
-
-
-
-
-
-
-
 
 module.exports= router
